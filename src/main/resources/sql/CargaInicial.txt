@@ -1,0 +1,12 @@
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Testes E2E\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste Unitário\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste de Componente\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste de Carga\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste de Mutação\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste Integrado\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Testes E2E\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste de Fumaça\" }"
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Teste Manual\" }"
+
+curl -X GET --location "http://localhost:8080"
+

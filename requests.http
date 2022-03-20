@@ -1,0 +1,48 @@
+### Post "Hello!"
+POST http://localhost:8080
+Content-Type: application/json
+
+{
+  "text": "Teste de Contrato"
+}
+
+### Post "Bonjour!"
+POST http://localhost:8080
+Content-Type: application/json
+
+{
+  "text": "Teste de Mutação"
+}
+
+### Post "Privet!"
+POST http://localhost:8080
+Content-Type: application/json
+
+{
+  "text": "Teste Unitário"
+}
+
+### get all the messages
+GET http://localhost:8080/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,14 @@ package web.service.webServiceTest
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.data.annotation.Id
+import org.springframework.data.jdbc.repository.query.Query
+import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
@@ -12,21 +19,35 @@ fun main(args: Array<String>) {
 	runApplication<WebServiceTestApplication>(*args)
 }
 
+
 @RestController
-class MessageResource {
+class MessageResource(val service: MessageService) {
 	@GetMapping
-	fun index(): List<Message> = listOf(
-		Message("1", "Teste de Contrato!"),
-		Message("2", "Testes E2E"),
-		Message("3", "Teste Unitário"),
-		Message("4", "Teste de Componente"),
-		Message("5", "Teste de Carga"),
-		Message("6", "Teste de Mutação"),
-		Message("7", "Teste Integrado"),
-		Message("8", "Teste de Fumaça"),
-		Message("9", "Teste Manual"),
-	)
+	fun index(): List<Message> = service.findMessages()
+
+	@PostMapping
+	fun post(@RequestBody message: Message) {
+		service.post(message)
+	}
 
 }
 
-data class Message(val id: String?, val text: String)
+@Service
+class MessageService(val db: MessageRepository) {
+
+	fun findMessages(): List<Message> = db.findMessages()
+
+	fun post(message: Message){
+		db.save(message)
+	}
+}
+
+interface MessageRepository : CrudRepository<Message, String> {
+
+	@Query("select * from messages")
+	fun findMessages(): List<Message>
+}
+
+@Table("MESSAGES")
+data class Message(@Id val id: String?, val text: String)
+

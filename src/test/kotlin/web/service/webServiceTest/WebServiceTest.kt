@@ -14,21 +14,27 @@ class WebServiceTest {
 
 	private val requestExchange = WebServiceExchange()
 
+	companion object{
+	 const val REGISTER = 10
+	}
+
 	@Test
 	fun `Create register`() {
 
-		val random = UUID.randomUUID().toString()
-		val request = requestExchange.payloadCreate(text = "Test_${random}")
+		for (e in 0 until REGISTER) {
+			val random = UUID.randomUUID().toString()
+			val request = requestExchange.payloadCreate(text = "Test_${random}")
 
-		RestAssured.given().relaxedHTTPSValidation()
-			.contentType(ContentType.JSON)
-			.filter(RequestLoggingFilter())
-			.filter(ResponseLoggingFilter())
-			.body(request)
-			.`when`()
-			.post(Data.URL)
-			.then()
-			.statusCode(HttpStatus.SC_OK)
+			RestAssured.given().relaxedHTTPSValidation()
+				.contentType(ContentType.JSON)
+				.filter(RequestLoggingFilter())
+				.filter(ResponseLoggingFilter())
+				.body(request)
+				.`when`()
+				.post(Data.URL)
+				.then()
+				.statusCode(HttpStatus.SC_OK)
+		}
 	}
 
 	@Test
@@ -43,8 +49,11 @@ class WebServiceTest {
 			.then()
 			.statusCode(HttpStatus.SC_OK)
 
-		val registro = response.extract().path<Any>("id[0]").toString().replace("[","").replace("]","")
-		Assert.assertEquals("d57c68b1-d6dc-458a-9016-2484486cb798", registro)
+		val id = response.extract().path<Any>("id[0]").toString().replace("[","").replace("]","")
+		val text = response.extract().path<Any>("text[0]").toString().replace("[","").replace("]","")
+		Assert.assertNotNull(id)
+		Assert.assertNotNull(text)
+		Assert.assertEquals("8ce6e581-84c9-4c5e-a594-cf9edf24114a", id)
 
 	}
 

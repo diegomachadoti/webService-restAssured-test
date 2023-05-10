@@ -10,6 +10,8 @@ Projeto: Web service REST com um banco de dados usando Spring Boot e Rest Assure
 Rodar No terminal o seguinte comando:
 > ./gradlew bootRun
 
+***Obs. Rodar o projeto no java 11***
+
 Assim que o aplicativo for iniciado, abra a seguinte URL: http://localhost:8080.
 
 
